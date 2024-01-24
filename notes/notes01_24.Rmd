@@ -1,0 +1,14 @@
+---
+title: "notes 01/24"
+author: "Ella Hoch Robinson"
+date: "2024-01-24"
+output: html_document
+---
+Hash values: security related
+
+## Git commands
+
+echo "what to write in file" >> file.whatever
+
+git status prints staged files
+
