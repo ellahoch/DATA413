@@ -12,3 +12,14 @@ echo "what to write in file" >> file.whatever
 
 git status prints staged files
 
+git rm to remove file 
+
+- basically all the same commands as terminal
+
+git rm will commit then remove the file
+
+In .gitignore list all files you want to be ignored
+
+
+
+

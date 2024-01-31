@@ -1,0 +1,7 @@
+---
+title: "notes 01/31"
+author: "Ella Hoch Robinson"
+date: "2024-01-24"
+output: html_document
+---
+
