@@ -5,3 +5,11 @@ date: "2024-01-24"
 output: html_document
 ---
 
+git checkout 'keyvalue part' -- file.name
+
+rm -rf will recursively remove a directory so it does not have to be empty
+
+- otherwise rmdir
+
+git commit --amend -m "new message to change"
+

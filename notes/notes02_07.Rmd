@@ -1,0 +1,48 @@
+---
+title: "notes 02/07"
+author: "Ella Hoch Robinson"
+date: "2024-02-07"
+output: html_document
+---
+
+vector types
+
+- atomic
+
+-- chr
+
+-- double
+
+-- int
+
+-- logical
+
+- list
+
+all vector types must be the same or it will convert
+
+raw vector
+
+- hexadecimal
+
+-- ints up to 9 then 0a == 10, 0b == 11. etc
+
+-- 50 == 32 bc 3*16+2 = 50
+
+na == logical
+
+`attr` adds description to object
+
+```{r}
+x <- c("a", "b","c","d","e")
+x[-c(2)]
+```
+
+```{r}
+x <- c(T, NA, T, F, NA)
+x[is.na(x)]
+```
+
+dont have to do return(x) can just put x alone and it will return last reference
+
+
