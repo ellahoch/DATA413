@@ -45,4 +45,9 @@ x[is.na(x)]
 
 dont have to do return(x) can just put x alone and it will return last reference
 
+```{r}
+norm <- function(vec){
+  (vec - min(vec))/range(vec)
+}
+```
 
