@@ -1,0 +1,175 @@
+---
+title: "HW 2 Hoch Robinson"
+author: "Ella Hoch Robinson"
+date: "2024-02-10"
+output: html_document
+---
+
+# 1
+
+```{r}
+library(tidyverse)
+tribble( ~x,    ~y,    ~w,    ~z,
+              210,   300,   220,   180,
+              102,   100,   119,   187,
+              176,   175,   188,   173,
+              87,    95,   91,     94,
+              202,   210,  234,    218,
+              110,   122,  131,    128,
+) -> dt
+dt
+```
+
+## 1 a.
+
+```{r}
+for(i in colnames(dt)){
+  print(map(dt[i], mean))
+}
+```
+
+## 1 b
+
+```{r}
+for(i in colnames(dt)){
+  print(map(dt[i], sd))
+}
+```
+
+
+```{r}
+map_dbl(dt, mean)
+```
+
+```{r}
+map_dbl(dt, sd)
+```
+
+```{r}
+for(i in colnames(dt)){
+  print(map(dt[i], sqrt))}
+```
+
+## 1 d.
+
+```{r}
+for(i in colnames(dt)){
+  print(map(dt[i], fivenum))
+  print(map(dt[i], mean))
+}
+```
+
+## 2 a
+
+```{r}
+map_dbl(dt, mean)
+```
+
+```{r}
+map_dbl(dt, sd)
+```
+
+```{r}
+map(dt, sqrt)
+```
+
+```{r}
+map(dt, fivenum)
+map_dbl(dt, mean)
+```
+
+## 2
+
+```{r}
+fun <- function(){
+  mean_vec <- numeric(10000)
+  for(i in 1:10000){
+    mean_vec[i] <- mean(rexp(5, rate = 2))
+  }
+  return(tibble(mean_vec))
+}
+
+means <- fun()
+
+ggplot(means, aes(mean_vec)) +
+  geom_histogram(binwidth = .01) +
+  labs(
+    title = "Means of 5 observation samples from an Exponential Distribution",
+    x = "Mean of sample",
+    y = "Count"
+  )
+```
+
+
+## 2 b
+
+```{r}
+fun <- function() {
+  means <-  tibble(mean_vec = replicate(10000, mean(rexp(5, rate = 2))))
+  return(means)
+}
+
+means2 <- fun()
+
+ggplot(means2, aes(mean_vec)) +
+  geom_histogram(binwidth = .01) +
+  labs(
+    title = "Means of 5 observation samples from an Exponential Distribution",
+    x = "Mean of sample",
+    y = "Count"
+  )
+```
+
+## 2 c
+
+```{r}
+sized_sample <- function(x) {
+  means <-  tibble(mean_vec = replicate(10000, mean(rexp(x, rate = 2))))
+  ggplot(means, aes(mean_vec)) +
+  geom_histogram(binwidth = .01) +
+  labs(
+    title = sprintf("Mean of %i observation samples from an Exponential Distribution", i),
+    x = "Mean of sample",
+    y = "Count"
+  )
+}
+
+for(i in c(5, 10, 20)){
+  print(sized_sample(i))
+}
+
+```
+
+```{r}
+map_fun <- function(){
+ means <- numeric(10000)
+ for(i in 1:10000){
+   samp <- tibble(i = rexp(5, rate = 2))
+   means[i] <- map_dbl(samp, mean)[[1]]
+ }
+ means_tbl <- tibble(mean_vec = means)
+ return(means_tbl)
+ 
+}
+means <- map_fun()
+
+ggplot(means, aes(mean_vec)) +
+  geom_histogram(binwidth = .01) +
+  labs(
+    title = "Means of samples from an Exponential Distribution",
+    x = "Mean of sample",
+    y = "Count"
+  )
+```
+
+
+## 3.
+
+```{r}
+dt <- mtcars
+output <- vector("double", ncol(dt))  # 1. output (use appropriate data frame instead of df)
+for (i in seq_along(dt)) {            # 2. sequence
+  print(output[[i]] <- sd(dt[[i]]))      # 3. body
+}
+```
+
