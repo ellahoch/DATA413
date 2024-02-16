@@ -167,9 +167,9 @@ ggplot(means, aes(mean_vec)) +
 
 ```{r}
 dt <- mtcars
-output <- vector("double", ncol(dt))  # 1. output (use appropriate data frame instead of df)
-for (i in seq_along(dt)) {            # 2. sequence
-  print(output[[i]] <- sd(dt[[i]]))      # 3. body
-} #5
+output <- vector("double", ncol(dt))  
+for (i in seq_along(dt)) {      
+  print(output[[i]] <- sd(dt[[i]]))     
+}
 ```
 
