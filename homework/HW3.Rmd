@@ -1,0 +1,24 @@
+---
+title: "HW3"
+author: "Ella Hoch Robinson"
+date: "2024-02-20"
+output: html_document
+---
+
+```{r}
+mydata <- mpg
+```
+
+```{r}
+ggplot(mydata, aes(manufacturer)) +
+  geom_bar() +
+  scale_x_discrete(guide = guide_axis(angle = 90)) +
+  theme_bw() +
+  labs(
+    title = "Count of Cars Manufactured by Major Car Brands",
+    x = "Manufacturer",
+    y = "Count"
+  )
+  
+```
+
