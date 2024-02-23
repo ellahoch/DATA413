@@ -4,3 +4,70 @@ author: "Ella Hoch Robinson"
 date: "2024-02-20"
 output: html_document
 ---
+
+## 1
+
+```{r}
+library(tidyverse)
+
+```
+
+```{r}
+wmata <- read_csv("../data/wmata_ridership.csv")
+```
+
+```{r}
+rightdates <- wmata |> 
+  filter(year(Date) != 2004) |> 
+  filter(year(Date) != 2005)
+
+rightdates
+```
+
+```{r}
+rightdates |> 
+  summarize(sum(Total))
+```
+
+
+```{r}
+newprop <- rightdates |> 
+  mutate(month = month(Date)) |> 
+  mutate(day = day(Date)) |> 
+  group_by(month) |> 
+  mutate(monthlyrides = sum(Total)) |> 
+  ungroup() |> 
+  group_by(month, day) |> 
+  mutate(totridesonday = sum(Total)) |> 
+  mutate(propofmonthrides = totridesonday/monthlyrides) |> 
+  distinct(month, day, .keep_all = T)
+  
+newprop
+```
+
+```{r}
+plotdata <- newprop |> 
+  mutate(dayofwk = wday(Date, label = T)) |> 
+  group_by(dayofwk)
+
+plotdata
+```
+
+```{r}
+ggplot(plotdata, aes(dayofwk, propofmonthrides)) +
+  geom_boxplot() +
+  labs(
+    title = "Proportion of monthly rides by day of the week",
+    x = "Day of Week",
+    y = "Proption of monthly rides"
+  )
+```
+
+# 2
+
+```{r}
+years <- c(2024, 3021, 2000, 1800, 800, 5050, 600, 7156)
+
+years[leap_year(years)]
+```
+
