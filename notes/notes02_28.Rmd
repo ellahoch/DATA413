@@ -1,0 +1,29 @@
+---
+title: "notes 02/28/2024"
+author: "Ella Hoch Robinson"
+date: "2024-02-28"
+output: html_document
+---
+
+do `usethis::create_package(rstudio = F)` to create package
+
+@export says to add to package
+
+devtools::install() to install package like normal
+
+- or devtools::load_all() to put in memory only for the session (dont do that)
+
+devtools::check() does some checks on the package
+
+after installing and loading run `usethis::usethistest()` to test package again
+
+usethis::use_test() to create tests
+
+- then edit to add tests
+
+- can expect_error or expect_equal whatever pops up 
+
+Have to specify all packages with :: in a package
+
+
+
