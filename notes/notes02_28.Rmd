@@ -25,5 +25,5 @@ usethis::use_test() to create tests
 
 Have to specify all packages with :: in a package
 
-
+To specify package to use do usethis::use_package("package")
 

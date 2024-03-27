@@ -1,0 +1,115 @@
+---
+title: "HW Shiny"
+author: "Ella Hoch Robinson"
+date: "2024-03-25"
+output: html_document
+---
+
+```{r}
+library(shinyWidgets)
+library(shiny)
+library(tidyverse)
+library(ggplot2movies)
+# library(mtcars)
+```
+
+```{r}
+ui <- fluidPage(selectInput(inputId = "mpaa",
+                            label = "Motion Picture Association of America:",
+                            choices = list('General Audience' = '',
+                            Restricted = "R",
+                            'Parental Guidance' = "PG",
+                            'No one under 17' = "NC-17"
+                            )),
+                sliderInput(inputId = "year",
+                            label = "Year Range:",
+                            min = min(movies$year),
+                            
+                            max = max(movies$year), 
+                            value = c(min(movies$year), max(movies$year))
+                            , step = 1
+                            ),
+                submitButton(),
+                tableOutput(outputId = "Title")
+  
+)
+server <- function(input, output) {
+  output$Title <- renderTable(
+    movies %>%
+      filter(mpaa == input$mpaa, year == input$year) %>% 
+      select(title, Action, Animation, Documentary, Comedy, Romance)
+  )
+  
+}
+shinyApp(ui, server)
+```
+
+```{r}
+ui <- fluidPage(h1("Ella and Liam"),
+  selectInput(
+    inputId = "var1",
+    label = "Select a x-variable",
+    choices = c(
+      "mpg",
+      "cyl",
+      "disp",
+      "drat",
+      "wt",
+      "qsec",
+      "gear"
+    )
+  ),
+  
+  selectInput(
+    inputId = "var2",
+    label = "Select a y variable",
+    choices = c(
+      "mpg",
+      "cyl",
+      "disp",
+      "drat",
+      "wt",
+      "qsec",
+      "gear"
+    )
+  ),
+  textOutput(outputId = "h1"),
+  plotOutput(outputId = "scatter"),
+  plotOutput(outputId = "x"),
+  plotOutput(outputId = "y")
+)
+
+server <- function(input, output){
+  output$h1 <- renderText(input$h1)
+  output$x <- renderPlot({
+    ggplot(mtcars, aes_string(x = input$var1)) +
+      geom_histogram() +
+      labs(
+        x = input$var1,
+        y = "count",
+        title = "Distribution of selected x variable"
+      )
+  })
+  output$y <- renderPlot({
+    ggplot(mtcars, aes_string(x = input$var2)) +
+      geom_histogram() +
+      labs(
+        x = input$var2,
+        y = "count",
+        title = "Distribution of selected y variable"
+      )
+  })
+  output$scatter <- renderPlot({
+    ggplot(mtcars, aes_string(input$var1, input$var2)) +
+      geom_point() +
+      geom_smooth(method = "lm",
+                  se = F) +
+      labs(
+        title = "Relationship between selected variables"
+      )
+  })
+}
+
+shinyApp(ui, server)
+```
+

@@ -1,0 +1,78 @@
+---
+title: "notes 03/06"
+author: "Ella Hoch Robinson"
+date: "2024-03-06"
+output: html_document
+---
+
+## SQL
+
+```{r}
+library(DBI)
+library(duckdb)
+```
+
+connect to database
+
+```{r}
+con <- dbConnect(duckdb(), "../data/flights.duckdb")
+```
+
+```{r}
+dbListTables(con)
+```
+
+```{r}
+dbListFields(con, "flights")
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+airports <- tbl(con, "airports")
+```
+
+connect with dplyr
+
+```{r}
+df_airports <- collect(airports)
+```
+
+```{sql, connection = con}
+SELECT tzone, name
+  FROM airports
+
+```
+```{r}
+df_airports |> 
+  group_by(tzone) |> 
+  summarize(count = n())
+```
+
+use `copy_to` to send table to database
+
+use `dbRemoveTable()` to get rid of table in database
+
+- always pass name of connection first
+
+use `dbDisconnect(con)` to disconnect
+
+```{r}
+dbDisconnect(con)
+```
+
+
+```{r}
+library(ellacalculator)
+```
+
+```{r}
+addition(3, 6)
+```
+
+```{r}
+division(9, 3)
+```
+
