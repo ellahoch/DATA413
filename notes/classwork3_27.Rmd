@@ -1,0 +1,75 @@
+---
+title: "classwork 3/27"
+author: "Ella Hoch Robinson"
+date: "2024-03-27"
+output: pdf_document
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(data.table)
+```
+
+# 1.
+
+```{r}
+flights1 <- fread("../data/nycdata.csv")
+```
+
+```{r}
+flights1[,c("year", "month", "day", "hour")]
+```
+
+# 2.
+
+```{r}
+flights1[(carrier == "DL" & origin == "JFK" & dest == "SEA")]
+```
+
+# 3.
+
+```{r}
+flights1[carrier == "UA" & month == 3 & air_time < 330]
+```
+
+# 4.
+
+```{r}
+flights1 |> 
+  filter(
+    month == 3,
+    carrier == "UA",
+    air_time < 330
+  )
+```
+
+# 5.
+
+Use the data.table method to add a variable called speed that is the average air speed of the plane in miles per hour.
+
+```{r}
+flights1[, c("speed") := .(distance/(air_time/60))]
+flights1
+```
+
+# 6.
+
+```{r}
+flights1 |> 
+  mutate(speed = distance/(air_time/60))
+```
+
+# 7.
+
+```{r}
+flights1[carrier == "UA", carrier := "UnitedAir"]
+flights1
+```
+
+```{r}
+flights1 |> 
+  mutate(carrier = recode(carrier, "UA" = "UnitedAir"))
+
+```
+
