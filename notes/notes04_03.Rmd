@@ -1,0 +1,76 @@
+---
+title: "notes 04/03"
+author: "Ella Hoch Robinson"
+date: "2024-04-03"
+output: html_document
+---
+
+webscraping
+
+```{r}
+library(tidyverse)
+library(rvest)
+```
+
+```{r}
+web_tidy <- read_html("http://rvest.tidyverse.org/")
+```
+
+```{r}
+web_tidy
+```
+
+have to find the element that you want
+
+<p> select all p elements
+
+.title selects all elements with class title
+
+\#title selects element with id attribute == title
+
+```{r}
+html <- minimal_html(
+  "
+  <h1>This is a heading</h1>
+  <p id='first'>This is a paragraph</p>
+  <p class='important'>This is an important paragraph</p>"
+  
+)
+```
+
+select element
+
+```{r}
+html |> 
+  html_elements("p")
+```
+
+p is paragraph
+
+`element` for just the first p and not text
+
+
+```{r}
+html |> 
+  html_elements("#first")
+```
+
+```{r}
+html |> 
+  html_elements(".important")
+```
+
+returns NA if nothing
+
+```{r}
+html <- minimal_html("
+  <ul>
+    <li><b>C-3PO</b> is a <i>droid</i> that weighs <span class='weight'>167 kg</span></li>
+    <li><b>R4-P17</b> is a <i>droid</i></li>
+    <li><b>R2-D2</b> is a <i>droid</i> that weighs <span class='weight'>96 kg</span></li>
+    <li><b>Yoda</b> weighs <span class='weight'>66 kg</span></li>
+  </ul>
+  ")
+```
+
+to get just just the text pass `html_text2()` or no 2 to get only the text
